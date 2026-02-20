@@ -2,43 +2,82 @@
 void base3Division(int number, int8_t* Ptr_numberToAddOne) {
     int base3 = 3;
     int quotient = 0;
-
-    while (number != ZERO || quotient != ZERO) {
-        if (number >= base3) {
-            number = number - base3;
-            quotient++;
+    if (number < 0) {
+        number = number * NEG;
+        while (number != ZERO || quotient != ZERO) {
+            if (number >= base3) {
+                number = number - base3;
+                quotient++;
+            }
+            else {
+                if (number == 2) {
+                    *Ptr_numberToAddOne = POS;
+                    Ptr_numberToAddOne++;
+                    number = quotient + POS;
+                    quotient = 0;
+                }
+                else if (number == 1) {
+                    *Ptr_numberToAddOne = NEG;
+                    Ptr_numberToAddOne++;
+                    number = quotient;
+                    quotient = 0;
+                }
+                else if (number == 0) {
+                    *Ptr_numberToAddOne = ZERO;
+                    Ptr_numberToAddOne++;
+                    number = quotient;
+                    quotient = 0;
+                }
+            }
         }
-        else {
-            if (number == 2) {
-                *Ptr_numberToAddOne = NEG;
-                Ptr_numberToAddOne++;
-                number = quotient + POS;
-                quotient = 0;
+    }
+    else {
+        while (number != ZERO || quotient != ZERO) {
+            if (number >= base3) {
+                number = number - base3;
+                quotient++;
             }
-            else if (number == 1) {
-                *Ptr_numberToAddOne = POS;
-                Ptr_numberToAddOne++;
-                number = quotient;
-                quotient = 0;
-            }
-            else if (number == 0) {
-                *Ptr_numberToAddOne = ZERO;
-                Ptr_numberToAddOne++;
-                number = quotient;
-                quotient = 0;
+            else {
+                if (number == 2) {
+                    *Ptr_numberToAddOne = NEG;
+                    Ptr_numberToAddOne++;
+                    number = quotient + POS;
+                    quotient = 0;
+                }
+                else if (number == 1) {
+                    *Ptr_numberToAddOne = POS;
+                    Ptr_numberToAddOne++;
+                    number = quotient;
+                    quotient = 0;
+                }
+                else if (number == 0) {
+                    *Ptr_numberToAddOne = ZERO;
+                    Ptr_numberToAddOne++;
+                    number = quotient;
+                    quotient = 0;
+                }
             }
         }
     }
 }
 
-void TrinaryAddition(int8_t* Ptr_numberToAddOne, int8_t* Ptr_numberToAddTwo) {
+int base3ToDecimal(int8_t* Ptr_numberToAddOne)
+{
+    int result = 0;
+    for (int i = 0; i < TRIT_WIDTH; i++) {
+        result += *Ptr_numberToAddOne * pow(3, i);
+        Ptr_numberToAddOne++;
+    }
+    printf("\n result %d: ", result);
+    return result;
+}
+
+void TrinaryAddition(int8_t* Ptr_numberToAddOne, int8_t* Ptr_numberToAddTwo, int8_t* TwoNumbersAdded) {
     int IteratorNumberOne = 0;
     int IteratorNumberTwo = 0;  
     int CarryOut = 0;
 
-    int8_t TwoNumbersAdded[9] = {};
-
-    for (IteratorNumberOne; IteratorNumberOne <= 8; IteratorNumberOne++) {
+    for (IteratorNumberOne; IteratorNumberOne < TRIT_WIDTH; IteratorNumberOne++) {
         int Sum = 0;
 
         Sum = *Ptr_numberToAddOne + *Ptr_numberToAddTwo + CarryOut;
@@ -82,7 +121,7 @@ void TrinaryAddition(int8_t* Ptr_numberToAddOne, int8_t* Ptr_numberToAddTwo) {
 
     printf("\nBoth Numbers Added: ");
 
-    for (int i = 0; i <= 8; i++) {
+    for (int i = 0; i < TRIT_WIDTH; i++) {
         printf("%d,", TwoNumbersAdded[i]);
     }
 }
