@@ -12,6 +12,7 @@ int main(void) {
 			additionMenu();
 			break;
 		case (subtraction):
+			subtractionMenu();
 			break;
 		case (divison):
 			break;

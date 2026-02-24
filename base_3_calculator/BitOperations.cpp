@@ -2,60 +2,44 @@
 void base3Division(int number, int8_t* Ptr_numberToAddOne) {
     int base3 = 3;
     int quotient = 0;
+    bool numberNegative = false;
     if (number < 0) {
         number = number * NEG;
-        while (number != ZERO || quotient != ZERO) {
-            if (number >= base3) {
-                number = number - base3;
-                quotient++;
-            }
-            else {
-                if (number == 2) {
-                    *Ptr_numberToAddOne = POS;
-                    Ptr_numberToAddOne++;
-                    number = quotient + POS;
-                    quotient = 0;
-                }
-                else if (number == 1) {
-                    *Ptr_numberToAddOne = NEG;
-                    Ptr_numberToAddOne++;
-                    number = quotient;
-                    quotient = 0;
-                }
-                else if (number == 0) {
-                    *Ptr_numberToAddOne = ZERO;
-                    Ptr_numberToAddOne++;
-                    number = quotient;
-                    quotient = 0;
-                }
-            }
-        }
+        numberNegative = true;
     }
-    else {
-        while (number != ZERO || quotient != ZERO) {
-            if (number >= base3) {
-                number = number - base3;
-                quotient++;
-            }
-            else {
-                if (number == 2) {
-                    *Ptr_numberToAddOne = NEG;
-                    Ptr_numberToAddOne++;
-                    number = quotient + POS;
-                    quotient = 0;
-                }
-                else if (number == 1) {
+    while (number != ZERO || quotient != ZERO) {
+        if (number >= base3) {
+            number = number - base3;
+            quotient++;
+        }
+        else {
+            if (number == 2) {
+                if (numberNegative) {
                     *Ptr_numberToAddOne = POS;
-                    Ptr_numberToAddOne++;
-                    number = quotient;
-                    quotient = 0;
                 }
-                else if (number == 0) {
-                    *Ptr_numberToAddOne = ZERO;
-                    Ptr_numberToAddOne++;
-                    number = quotient;
-                    quotient = 0;
+                else {
+                    *Ptr_numberToAddOne = NEG;
                 }
+                Ptr_numberToAddOne++;
+                number = quotient + POS;
+                quotient = 0;
+            }
+            else if (number == 1) {
+                if (numberNegative) {
+                    *Ptr_numberToAddOne = NEG;
+                }
+                else {
+                    *Ptr_numberToAddOne = POS;
+                }
+                Ptr_numberToAddOne++;
+                number = quotient;
+                quotient = 0;
+            }
+            else if (number == 0) {
+                *Ptr_numberToAddOne = ZERO;
+                Ptr_numberToAddOne++;
+                number = quotient;
+                quotient = 0;
             }
         }
     }
@@ -70,6 +54,18 @@ int base3ToDecimal(int8_t* Ptr_numberToAddOne)
     }
     printf("\n result %d: ", result);
     return result;
+}
+
+void bitFlipper(int8_t* Ptr_numberToAddOne) {
+    for (int i = 0; i < TRIT_WIDTH; i++) {
+        if (*Ptr_numberToAddOne == NEG) {
+            *Ptr_numberToAddOne = POS;
+        }
+        else if (*Ptr_numberToAddOne == POS) {
+            *Ptr_numberToAddOne = NEG;
+        }
+        Ptr_numberToAddOne++;
+    }
 }
 
 void TrinaryAddition(int8_t* Ptr_numberToAddOne, int8_t* Ptr_numberToAddTwo, int8_t* TwoNumbersAdded) {
