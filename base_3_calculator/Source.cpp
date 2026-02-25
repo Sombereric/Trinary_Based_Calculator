@@ -17,6 +17,7 @@ int main(void) {
 		case (divison):
 			break;
 		case (multiplication):
+			multiplcationMenu();
 			break;
 		case (exitProgram):
 			menuRunning = false;

@@ -37,11 +37,16 @@ int getUserNumber();
 void mainMenuDisplay();
 void additionMenu();
 void subtractionMenu();
+void multiplcationMenu();
 
 //bitoperations prototypes
 void base3Division(int number, int8_t* Ptr_numberToAddOne);
 void TrinaryAddition(int8_t* Ptr_numberToAddOne, int8_t* Ptr_numberToAddTwo, int8_t* TwoNumbersAdded);
 int base3ToDecimal(int8_t* Ptr_numberToAddOne);
 void bitFlipper(int8_t* Ptr_numberToAddOne);
+void multipleTritsNEG(int8_t* Ptr_numberToAddOne);
+void shiftValueToRightOne(int8_t* Ptr_numberToAddOne, int);
+void setFirstNumberEqualToSecond(int8_t*, int8_t*);
+void clearTrit(int8_t* Ptr_numberToAddOne);
 
 //https://en.wikipedia.org/wiki/Three-valued_logic
